@@ -1,14 +1,16 @@
-// src/components/Home.js
-import React from 'react';
-import './Home.css'; // Importamos el archivo CSS específico para este componente
+import React from "react";
+import "./Home.css";
 
-function Home() {
+const Home = () => {
   return (
     <div className="home-container">
       <h1>Bienvenido a HappyPets</h1>
-      <p>¡Cuidemos juntos a nuestras mascotas!</p>
+      <p>
+        Descubre la importancia del cuidado de las mascotas y cómo pueden
+        mejorar nuestras vidas. ❤️🐶🐱
+      </p>
     </div>
   );
-}
+};
 
 export default Home;
