@@ -1,0 +1,131 @@
+**Manual para Crear un Proyecto de Sitio Web de Animales con React y Node.js (Sin Base de Datos)**
+
+---
+
+## 1. **Instalación del Entorno**
+
+### Requisitos:
+- Node.js y npm (https://nodejs.org/)
+- Visual Studio Code u otro editor
+- Git (opcional)
+
+Instala **Node.js** para usar npm (Node Package Manager) y manejar tus dependencias.
+
+### Crear la estructura del proyecto:
+```bash
+mkdir mi-sitio-animales
+cd mi-sitio-animales
+```
+
+
+## 2. **Configuración del Backend con Node.js**
+
+Inicializa un proyecto Node.js:
+```bash
+npm init -y
+```
+
+Instala las dependencias necesarias:
+```bash
+npm install express cors
+```
+
+Crea el archivo principal del servidor:
+`backend/server.js`
+
+```javascript
+const express = require('express');
+const cors = require('cors');
+const app = express();
+const port = 3001;
+
+app.use(cors());
+
+// Datos simulados
+const animales = [
+  { id: 1, nombre: 'León', tipo: 'Mamífero', descripcion: 'Rey de la selva' },
+  { id: 2, nombre: 'Águila', tipo: 'Ave', descripcion: 'Majestuosa y veloz' },
+];
+
+app.get('/api/animales', (req, res) => {
+  res.json(animales);
+});
+
+app.listen(port, () => {
+  console.log(`Servidor corriendo en http://localhost:${port}`);
+});
+```
+
+Inicia el servidor:
+```bash
+node backend/server.js
+```
+
+
+## 3. **Configuración del Frontend con React**
+
+Crea la aplicación React:
+```bash
+npx create-react-app frontend
+cd frontend
+```
+
+Instala Axios para hacer peticiones HTTP:
+```bash
+npm install axios
+```
+
+Crea componentes básicos:
+`frontend/src/App.js`
+
+```javascript
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
+function App() {
+  const [animales, setAnimales] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/api/animales')
+      .then((response) => setAnimales(response.data))
+      .catch((error) => console.error(error));
+  }, []);
+
+  return (
+    <div>
+      <h1>Sitio de Animales</h1>
+      <ul>
+        {animales.map((animal) => (
+          <li key={animal.id}>
+            <h2>{animal.nombre}</h2>
+            <p>{animal.tipo}</p>
+            <p>{animal.descripcion}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default App;
+```
+
+Inicia la aplicación React:
+```bash
+npm start
+```
+
+
+## 4. **Estructura del Proyecto Final:**
+```
+mi-sitio-animales/
+├── backend/
+│   └── server.js
+├── frontend/
+│   ├── public/
+│   └── src/
+│       └── App.js
+├── package.json
+└── README.md
+```
+
